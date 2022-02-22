@@ -2,13 +2,14 @@
 
 // Temporary Posts controller
 
-namespace application\Controllers;
+namespace app\controllers;
 
 class Posts
 {
     public function index()
     {
         echo "This is Controller 'Posts' and Action 'Index'.";
+        echo htmlspecialchars(print_r($_GET, true));
     }
 
     public function addNew()

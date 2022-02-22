@@ -8,6 +8,11 @@
 
     Varjoissa
 
+    ## 2022-02-22
+    - Added namespace   core
+    - Updated           prompt() to dispatch namespace based.
+    - Added method      trimQueryString() to extract route from url.
+
     ## 2022-02-21
     - Created array     $params; to hold all params for the matched route.
     - Created method    getParams; to get all params for current match
@@ -73,10 +78,12 @@ class Router
     // Redirects the url to given controller/action
     public function prompt($url)
     {
+        $url = $this->trimQueryString($url);
+
         if ($this->match($url)) {
             $controller = $this->params['controller'];
             $controller = $this->convertString($controller, 'studly');
-            $controller = "application\Controllers\\$controller";
+            $controller = "app\controllers\\$controller";
 
             if (class_exists($controller)) {
                 $controller_obj = new $controller();
@@ -126,6 +133,7 @@ class Router
 
 //  **** TOOLS *************************************************************
 
+    // Converts a string to StudlyString or camelCase.
     protected function convertString($string, $output) 
     {
         switch ($output) {
@@ -138,5 +146,20 @@ class Router
             default:
                 return $string;
         }
+    }
+
+    // Trims query string variables from the url to extract the route
+    protected function trimQueryString($url) 
+    {
+        if ($url != '') {
+            $parts = explode('&', $url, 2);
+
+            if (strpos($parts[0], '=') === false) {
+                 $url = $parts[0];
+            } else {
+                $url = '';
+            }
+        }
+        return $url;
     }
 }

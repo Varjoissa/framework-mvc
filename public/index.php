@@ -8,6 +8,9 @@
 
     Varjoissa
 
+    ## 2022-02-22
+    - Added autoloader  Controller autoloader
+
     ## 2022-02-21
     - Added routes      Dynamic routes; adding Regex to routing table
     - Added prompt      Dispatches URL to Controller/Action
@@ -19,10 +22,7 @@
 
 */
 
-// Controllers
-// require '../application/Controllers/Posts.php';
-
-// Autoloader
+// Class Autoloader
 spl_autoload_register(function ($class) {
     $root = dirname(__DIR__);
     $file = $root . '/' . str_replace('\\', '/', $class) . '.php';

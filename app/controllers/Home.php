@@ -2,7 +2,7 @@
 
 // Temporary Home controller
 
-namespace application\Controllers;
+namespace app\controllers;
 
 class Home
 {
