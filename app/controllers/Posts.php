@@ -4,7 +4,7 @@
 
 namespace app\controllers;
 
-class Posts
+class Posts extends \core\Controller
 {
     public function index()
     {
@@ -15,5 +15,11 @@ class Posts
     public function addNew()
     {
         echo "This is Controller 'Posts' and Action 'addNew'.";
+    }
+
+    public function edit()
+    {
+        echo "This is Controller 'Posts' and Action 'edit' with parameters: <br><pre>";
+        echo htmlspecialchars(print_r($this->route_params, true)) . '</pre>';
     }
 }

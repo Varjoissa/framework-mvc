@@ -4,7 +4,7 @@
 
 namespace app\controllers;
 
-class Home
+class Home extends \core\Controller
 {
     public function index()
     {

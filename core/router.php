@@ -86,7 +86,7 @@ class Router
             $controller = "app\controllers\\$controller";
 
             if (class_exists($controller)) {
-                $controller_obj = new $controller();
+                $controller_obj = new $controller($this->params);
 
                 $action = $this->params['action'];
                 $action = $this->convertString($action, 'camel');
