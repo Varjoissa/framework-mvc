@@ -1,16 +1,17 @@
 <?php
 
-// Temporary Home controller
+// Temporary Admin controller
 
-namespace app\controllers;
+namespace app\controllers\Admin;
 
-class Home extends \core\Controller
+class Users extends \core\Controller
 {
     // ACTIONS
     public function indexAction()
     {
-        echo "This is Controller 'Home' and Action 'Index'.";
+        echo "This is Controller 'Admin' and Action 'Users'.";
     }
+
 
     // ACTION FILTERS
     protected function before()

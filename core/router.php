@@ -8,6 +8,9 @@
 
     Varjoissa
 
+    ## 2022-02-27       
+    - Renamed method    prompt() -> dispatch()
+
     ## 2022-02-22
     - Added namespace   core
     - Updated           prompt() to dispatch namespace based.
@@ -50,6 +53,16 @@ class Router
         return $this->routes;
     }
 
+    protected function getNamespace()
+    {
+        $namespace = 'app\controllers\\';
+
+        if (array_key_exists('namespace', $this->params)) {
+            $namespace .= $this->params['namespace'] . '\\';
+        }
+
+        return $namespace;
+    }
 
 
 
@@ -76,14 +89,14 @@ class Router
     }
 
     // Redirects the url to given controller/action
-    public function prompt($url)
+    public function dispatch($url)
     {
         $url = $this->trimQueryString($url);
 
         if ($this->match($url)) {
             $controller = $this->params['controller'];
             $controller = $this->convertString($controller, 'studly');
-            $controller = "app\controllers\\$controller";
+            $controller = $this->getNamespace() . "$controller";
 
             if (class_exists($controller)) {
                 $controller_obj = new $controller($this->params);

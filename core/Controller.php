@@ -27,11 +27,26 @@ abstract class Controller
 
     public function __call($name, $args) 
     {
-        // BEFORE
+        $method = $name . "Action";
 
-        // ACTION
-        call_user_func_array([$this, $name], $args);
+        if (method_exists($this, $method)) {
+            // BEFORE
+            if ($this->before() !== false) {
+            // ACTION
+                call_user_func_array([$this, $method], $args);
+            // AFTER
+                $this->after();
+            }
+        } else {
+            echo "Method $method not found in controller " . get_class($this) . " (#404)";
+        }
+    }
 
-        // AFTER
+    protected function before()
+    {
+    }
+
+    protected function after()
+    {
     }
 }

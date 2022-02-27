@@ -4,9 +4,13 @@
     Front controller
 
     Created: 2022-02-13
-    Updated: 2022-02-21
+    Updated: 2022-02-27
 
     Varjoissa
+
+    ## 2022-02-27
+    - Added param       namespace to Routing table (Routing table needs to be seperated later)
+    - Changed call      $ROUTER->prompt() to $ROUTER->dispatch()
 
     ## 2022-02-22
     - Added autoloader  Controller autoloader
@@ -37,28 +41,11 @@ require '../core/Router.php';
 // Create new ROUTER
 $ROUTER = new core\Router();
 
-// Create routes
+// Create routes (routing table)
 $ROUTER->add('', ['controller' => 'Home', 'action' => 'index']);
 $ROUTER->add('{controller}/{action}');
 $ROUTER->add('{controller}/{id:\d+}/{action}');
-$ROUTER->add('admin/{action}/{controller}');
+$ROUTER->add('admin/{action}/{controller}', ['namespace' => 'Admin']);
 
-$ROUTER->prompt($_SERVER['QUERY_STRING']);
-
-
-
-
-
-
-
-
-
-// // **** DEBUGGING ***********************************************************
-// function debugInfo(&$ROUTER)
-// {
-//     echo '<pre>';
-//     // echo htmlspecialchars(print_r($ROUTER->getRoutes(), true));
-//     // echo '<br>';
-//     echo htmlspecialchars(print_r($ROUTER->getParams(), true));
-//     echo '</pre>';
-// }
+// Dispatch route
+$ROUTER->dispatch($_SERVER['QUERY_STRING']);
