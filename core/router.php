@@ -113,7 +113,7 @@ class Router
                 echo "Controller class $controller not found.";
             }
         } else {
-            echo "No route found for url $url.";
+            echo "No route found for url $url. (#404)";
         }
     }
 

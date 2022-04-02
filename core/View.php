@@ -10,6 +10,10 @@ class View
 {
     public static function render($view, $args = [])
     {
+        foreach ($args as $key => $value) {
+            $args[$key] = htmlspecialchars($value);
+        }
+
         extract($args, EXTR_PREFIX_SAME, "self");
         
         $file = "../app/views/$view"; // Relative to core
