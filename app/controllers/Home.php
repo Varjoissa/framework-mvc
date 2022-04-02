@@ -4,22 +4,22 @@
 
 namespace app\controllers;
 
+use core\View;
+
 class Home extends \core\Controller
 {
     // ACTIONS
     public function indexAction()
     {
-        echo "This is Controller 'Home' and Action 'Index'.";
+        View::render('Home/index.php');
     }
 
     // ACTION FILTERS
     protected function before()
     {
-        echo "(before) ";
     }
 
     protected function after()
     {
-        echo " (after)";
     }
 }

@@ -4,6 +4,8 @@
 
 namespace app\controllers\Admin;
 
+use core\View;
+
 class Users extends \core\Controller
 {
     // ACTIONS
@@ -16,11 +18,9 @@ class Users extends \core\Controller
     // ACTION FILTERS
     protected function before()
     {
-        echo "(before) ";
     }
 
     protected function after()
     {
-        echo " (after)";
     }
 }

@@ -4,34 +4,33 @@
 
 namespace app\controllers;
 
+use core\View;
+
 class Posts extends \core\Controller
 {
     // ACTIONS
     public function indexAction()
     {
-        echo "This is Controller 'Posts' and Action 'Index'.";
-        echo htmlspecialchars(print_r($_GET, true));
+        View::render('Posts/index.php');
     }
 
     public function addNewAction()
     {
-        echo "This is Controller 'Posts' and Action 'addNew'.";
+        View::render('Posts/addNew.php');
     }
 
     public function editAction()
     {
-        echo "This is Controller 'Posts' and Action 'edit' with parameters: <br><pre>";
-        echo htmlspecialchars(print_r($this->route_params, true)) . '</pre>';
+        View::render('Posts/edit.php', $this->route_params);
     }
 
     // ACTION FILTERS
     protected function before()
     {
-        echo "(before) ";
+        // print_r($this->route_params);
     }
 
     protected function after()
     {
-        echo " (after)";
     }
 }

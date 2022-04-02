@@ -38,7 +38,7 @@ abstract class Controller
                 $this->after();
             }
         } else {
-            echo "Method $method not found in controller " . get_class($this) . " (#404)";
+            echo "Method $method not found in controller " . get_class($this) . " (#404)"; // Will be 404 page later on
         }
     }
 
