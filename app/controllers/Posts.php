@@ -24,6 +24,11 @@ class Posts extends \core\Controller
         View::render('Posts/edit.php', $this->route_params);
     }
 
+    public function testAction()
+    {
+        View::render('Posts/test.php', $this->route_params);
+    }
+
     // ACTION FILTERS
     protected function before()
     {

@@ -41,11 +41,14 @@ require '../core/Router.php';
 // Create new ROUTER
 $ROUTER = new core\Router();
 
-// Create routes (routing table)
-$ROUTER->add('', ['controller' => 'Home', 'action' => 'index']);
-$ROUTER->add('{controller}/{action}');
-$ROUTER->add('{controller}/{id:\d+}/{action}');
-$ROUTER->add('admin/{action}/{controller}', ['namespace' => 'Admin']);
+$routing_table = json_decode(file_get_contents('../core/routing_table.json'), true);
+foreach ($routing_table as $route) {
+    $ROUTER->add($route['route'], $route['params']);
+}
 
-// Dispatch route
-$ROUTER->dispatch($_SERVER['QUERY_STRING']);
+// // Dispatch route
+if ($ROUTER->verify($_SERVER['QUERY_STRING'])) {
+    $ROUTER->dispatch($_SERVER['QUERY_STRING']);
+} else {
+    echo "Your request URL is denied.";
+}

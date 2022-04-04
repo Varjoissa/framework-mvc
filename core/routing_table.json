@@ -1,0 +1,27 @@
+{
+    "landingspage": {
+        "route": "",
+        "params": {
+            "controller": "Home",
+            "action": "index"
+        }
+    },
+    "admin": {
+        "route": "admin/{action}/{controller}",
+        "params": {
+            "namespace": "Admin"
+        }
+    },
+    "basic": {
+        "route": "{controller}/{action}",
+        "params": []
+    },
+    "id": {
+        "route": "{controller}/{id:\\d+}/{action}",
+        "params": []
+    },
+    "doubleid": {
+        "route": "{controller}/{ida:\\d+}/{idb:\\d+}/{action}",
+        "params": []
+    }
+}

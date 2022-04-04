@@ -143,6 +143,14 @@ class Router
     }
 
 
+    public function verify($url)
+    {
+        if ($url === htmlspecialchars($url)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 //  **** TOOLS *************************************************************
 
