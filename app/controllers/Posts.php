@@ -5,13 +5,15 @@
 namespace app\controllers;
 
 use core\View;
+use app\models\Post;
 
 class Posts extends \core\Controller
 {
     // ACTIONS
     public function indexAction()
     {
-        View::render('Posts/index.php');
+        $posts = Post::getAll();
+        View::render('Posts/index.php', ['posts' => $posts]);
     }
 
     public function addNewAction()

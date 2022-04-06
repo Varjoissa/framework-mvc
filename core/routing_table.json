@@ -1,5 +1,5 @@
 {
-    "landingspage": {
+    "landing": {
         "route": "",
         "params": {
             "controller": "Home",
@@ -10,6 +10,13 @@
         "route": "admin/{action}/{controller}",
         "params": {
             "namespace": "Admin"
+        }
+    },
+    "login": {
+        "route": "login",
+        "params": {
+            "controller": "Account",
+            "action": "index"
         }
     },
     "basic": {

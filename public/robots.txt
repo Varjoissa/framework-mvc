@@ -1,0 +1,4 @@
+# If you are here just out of curiosity, have a good time. :)
+
+# Tell robots which pages are highly uninteresting:
+Disallow: /admin*

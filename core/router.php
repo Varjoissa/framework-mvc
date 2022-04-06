@@ -91,29 +91,31 @@ class Router
     // Redirects the url to given controller/action
     public function dispatch($url)
     {
+        
         $url = $this->trimQueryString($url);
-
+        
         if ($this->match($url)) {
             $controller = $this->params['controller'];
             $controller = $this->convertString($controller, 'studly');
             $controller = $this->getNamespace() . "$controller";
-
+            
             if (class_exists($controller)) {
                 $controller_obj = new $controller($this->params);
-
+                
                 $action = $this->params['action'];
                 $action = $this->convertString($action, 'camel');
 
-                if (is_callable([$controller_obj, $action])) {
+                if (preg_match('/action$/i', $action) == 0) {
                     $controller_obj->$action();
                 } else {
-                    echo "Method $action in controller $controller not found.";
+                    echo "Method $action in controller $controller cannot be called directly - remove the Action suffix to call this method";
+                    exit();
                 }
             } else {
-                echo "Controller class $controller not found.";
+                echo "Controller class $controller not found. (#404)";
             }
         } else {
-            echo "No route found for url $url. (#404)";
+            echo "No route found for url " . urlencode($url) . ". (#404)";
         }
     }
 
@@ -124,10 +126,13 @@ class Router
     //      return (boolean)    : Match is succesfull or not
     public function match($url)
     {
+        
         foreach ($this->routes as $route => $params) {
             // Extract routing params from URL
+            
             if (preg_match($route, $url, $matches)) {
                 // Loop through params and get the named params
+                
                 foreach ($matches as $key => $match) {
                     if (is_string($key)) {
                         $params[$key] = $match;
@@ -140,16 +145,6 @@ class Router
         }
 
         return false;
-    }
-
-
-    public function verify($url)
-    {
-        if ($url === htmlspecialchars($url)) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
 //  **** TOOLS *************************************************************

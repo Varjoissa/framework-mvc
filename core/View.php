@@ -8,11 +8,24 @@ namespace core;
 
 class View
 {
-    public static function render($view, $args = [])
+    // Escapes output for every value, passed to the view
+    protected function escapeOutput($args = [])
     {
         foreach ($args as $key => $value) {
-            $args[$key] = htmlspecialchars($value);
+            if (is_array($value)) {
+                $args[$key] = $this->escapeOutput($value);
+            } else {
+                $args[$key] = htmlspecialchars($value);
+            }
         }
+        return $args;
+    }
+
+    // Calls the specific view with passed values
+    public static function render($view, $args = [])
+    {
+
+        $args = (new View())->escapeOutput($args);
 
         extract($args, EXTR_PREFIX_SAME, "self");
         
