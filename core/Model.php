@@ -1,6 +1,6 @@
 <?php
 
-namespace core;
+namespace Core;
 
 abstract class Model
 {
@@ -12,7 +12,7 @@ abstract class Model
         // Create new database connection if it doesnt exist yet
         if ($DB === null) {
             $dbSettings = parse_ini_file("../env/database.ini");
-            $DB = new \core\Handlers\MYSQL_CONNECTION($dbSettings['host'], $dbSettings['database'], $dbSettings['username'], $dbSettings['password']);
+            $DB = new \core\Handlers\SQL_Handler($dbSettings['host'], $dbSettings['database'], $dbSettings['username'], $dbSettings['password']);
             return $DB;
         }
     }

@@ -7,22 +7,22 @@
     This version is basically working, but still very incomplete.
     
     Created: 2022-01-25
-    Updated: 2022-01-27
+    Updated: 2022-04-07
 
     Varjoissa
 
 
     ***** TODO *****
-    **1 Setup authorisation methods (declarations, setAuth())
-    **2 Check if $this->variables can be used as standard value in optional arguments. (request)
-    **3 setup responseheaders (getResponseHeaders)
+    **1 Reform Handler -> Endpoint template, with regex identifiers, to add Auth and params dynamically
 */
 
 // namespace core\Handlers;
 
 // use PDO;
 
-class REST_API_CONNECTION
+namespace Core\Handlers;
+
+class API_Handler
 {
     protected $connection;
     protected $connection_status = false;
@@ -201,7 +201,7 @@ class REST_API_CONNECTION
             if (isset($this->options) && $this->connection_status = true) {
                 curl_setopt_array($this->connection, $this->options);
             } 
-        } catch (Exception $error) {
+        } catch (\Exception $error) {
             echo "Error: Initializing API '$this->endpoint' went wrong: " . $error->getMessage();
         }
     }

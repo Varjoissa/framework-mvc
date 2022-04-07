@@ -2,11 +2,11 @@
 
 // Temporary Home controller
 
-namespace app\controllers;
+namespace App\Controllers;
 
-use core\View;
+use Core\View;
 
-class Home extends \core\Controller
+class Home extends \Core\Controller
 {
     // ACTIONS
     public function indexAction()

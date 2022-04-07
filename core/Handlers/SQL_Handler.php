@@ -14,11 +14,11 @@
     **1. Check whether a combination of data is true.
 */
 
-namespace core\Handlers;
+namespace Core\Handlers;
 
 use PDO;
 
-class MYSQL_CONNECTION
+class SQL_Handler
 {
     protected $connection;                              // DOCS PDO: https://www.php.net/manual/en/book.pdo.php
     protected $dsn = '';

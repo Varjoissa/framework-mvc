@@ -2,11 +2,11 @@
 
 // Temporary Posts controller
 
-namespace app\controllers;
+namespace App\Controllers;
 
-use core\View;
+use Core\View;
 
-class Account extends \core\Controller
+class Account extends \Core\Controller
 {
     // ACTIONS
     public function indexAction()

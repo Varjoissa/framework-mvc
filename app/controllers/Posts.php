@@ -2,17 +2,18 @@
 
 // Temporary Posts controller
 
-namespace app\controllers;
+namespace App\Controllers;
 
-use core\View;
-use app\models\Post;
+use Core\View;
 
-class Posts extends \core\Controller
+// use App\Models\Posts;
+
+class Posts extends \Core\Controller
 {
     // ACTIONS
     public function indexAction()
     {
-        $posts = Post::getAll();
+        $posts = \App\Models\Posts::getAll();
         View::render('Posts/index.php', ['posts' => $posts]);
     }
 

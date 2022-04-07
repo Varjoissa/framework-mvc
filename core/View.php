@@ -4,7 +4,7 @@
     View class
 */
 
-namespace core;
+namespace Core;
 
 class View
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace app\models;
+namespace App\Models;
 
-class Post extends \core\Model
+class Posts extends \Core\Model
 {
     // Get all data from posts
     public static function getAll()

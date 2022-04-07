@@ -29,7 +29,7 @@
 
 */
 
-namespace core;
+namespace Core;
 
 class Router
 {

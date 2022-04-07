@@ -13,7 +13,7 @@
 
 */
 
-namespace core;
+namespace Core;
 
 abstract class Controller
 {

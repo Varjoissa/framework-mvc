@@ -2,11 +2,11 @@
 
 // Temporary Admin controller
 
-namespace app\controllers\Admin;
+namespace App\Controllers\Admin;
 
-use core\View;
+use Core\View;
 
-class Users extends \core\Controller
+class Users extends \Core\Controller
 {
     // ACTIONS
     public function indexAction()
