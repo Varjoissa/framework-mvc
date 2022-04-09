@@ -12,10 +12,9 @@
             "namespace": "Admin"
         }
     },
-    "login": {
-        "route": "login",
+    "index": {
+        "route": "{controller}",
         "params": {
-            "controller": "Account",
             "action": "index"
         }
     },

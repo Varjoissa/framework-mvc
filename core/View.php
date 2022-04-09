@@ -50,7 +50,7 @@ class View
             require $file;
         } else {
             // Throw exception 404 - Not Found
-            echo "$file not found"; 
+            throw new \Exception("$file not found", 404); 
         }
     }
 }

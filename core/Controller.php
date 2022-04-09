@@ -45,7 +45,8 @@ abstract class Controller
             }
         } else {
             // Throw exception 404 - Not Found
-            echo "Method $method not found in controller " . get_class($this) . " (#404)"; 
+            throw new \Exception("Method $method not found in controller " . get_class($this) . ".", 404);
+            //echo "Method $method not found in controller " . get_class($this) . " (#404)"; 
         }
     }
 

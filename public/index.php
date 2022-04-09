@@ -22,12 +22,17 @@ spl_autoload_register(function ($class) {
     }
 });
 
+// Error and Exception handling
+error_reporting(E_ALL);
+set_error_handler("Core\Error::errorHandler");
+set_exception_handler("Core\Error::exceptionHandler");
+
 // Router Creation
 require '../Core/Router.php';
 $ROUTER = new core\Router();
 
 // Routing-Table importing from JSON file
-$routing_table = json_decode(file_get_contents('../Core/routing_table.json'), true);
+$routing_table = json_decode(file_get_contents('../App/routing_table.json'), true);
 foreach ($routing_table as $route) {
     $ROUTER->add($route['route'], $route['params']);
 }

@@ -100,16 +100,16 @@ class Router
                     $controller_obj->$action();
                 } else {
                     // Throw exception 500 - Server Error
-                    echo "Method $action in controller $controller cannot be called directly - remove the Action suffix to call this method";
+                    throw new \Exception("Method $action in controller $controller cannot be called directly - remove the Action suffix to call this method.", 500);
                     exit();
                 }
             } else {
                 // Throw exception 404 - Not Found
-                echo "Controller class $controller not found. (#404)";
+                throw new \Exception("Controller class $controller not found.", 404);
             }
         } else {
             // Throw exception 404 - Not Found
-            echo "No route found for url " . urlencode($url) . ". (#404)";
+            throw new \Exception("No route found for url " . urlencode($url) . ".", 404);
         }
     }
 
