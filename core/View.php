@@ -43,14 +43,15 @@ class View
         extract($args, EXTR_PREFIX_SAME, "self");
         
         // Define view; relative to Core namespace
-        $file = "../App/Views/$view"; 
+        $template = "../App/Views/_Templates/_BaseTemplate.php"; 
+        $body = "../App/Views/$view"; 
 
-        // Call view if it is available
-        if (is_readable($file)) {
-            require $file;
+        // Call view if it is available; display it through the base template
+        if (is_readable($template) && is_readable($body)) {
+            require $template;
         } else {
             // Throw exception 404 - Not Found
-            throw new \Exception("$file not found", 404); 
+            throw new \Exception("$body not found", 404); 
         }
     }
 }

@@ -61,15 +61,16 @@ class Error
             
             // Create log and save it to the logfile
             ini_set('error_log' , $log);
-            $message = "Uncaught exception: '" . get_class($exception) . "'";
-            $message .= "\nMessage: [#$code] '" . $exception->getMessage() . "'";
-            $message .= "\nStack trace: '" . $exception->getTraceAsString() . "'";
-            $message .= "\nThrown in: '" . $exception->getFile() . "' on line " . $exception->getLine() . "\n\n";
+            $message = "\nUncaught exception : '" . get_class($exception) . "'";
+            $message .= "\nMessage            : [#$code] '" . $exception->getMessage() . "'";
+            $message .= "\nStack trace        : '" . $exception->getTraceAsString() . "'";
+            $message .= "\nThrown in          : '" . $exception->getFile() . "' on line " . $exception->getLine() . "\n";
             error_log($message);
             
             // Show the error page
             if (file_exists("../App/Views/Errors/$code.html")) {
                 // Designated view
+                $pagetitle = $code;
                 View::render("Errors/$code.html");
             } else {
                 // Plain text message

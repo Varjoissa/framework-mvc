@@ -25,7 +25,7 @@ class Config
         if (array_key_exists($category, $settings)) {
             return $settings[$category];
         } else {
-            // Else throw an error
+            // Else throw an exception
             throw new \Exception("Setting $category requested, but not found.", 500);
         }
     }

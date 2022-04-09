@@ -13,7 +13,7 @@ class Posts extends \Core\Controller
     // ACTIONS
     public function indexAction()
     {
-        $posts = \App\Models\Posts::getAll();
+        $posts = \App\Models\Database\DB_GET::getAllConditional('posts', ['id'], [2]);
         View::render('Posts/index.php', ['posts' => $posts]);
     }
 

@@ -16,7 +16,7 @@
     **1 Reform Handler -> Endpoint template, with regex identifiers, to add Auth and params dynamically
 */
 
-namespace Core\Handlers;
+namespace App\Models\Handlers;
 
 class API_Handler
 {

@@ -14,7 +14,7 @@
     **1. Check whether a combination of data is true.
 */
 
-namespace Core\Handlers;
+namespace App\Models\Handlers;
 
 use PDO;
 

@@ -24,13 +24,14 @@ abstract class Model
         if ($DB === null) {
             // Get DB settings from Environment INI
             $dbSettings = (new Config())->getSettings('database');
+            
             // Create new SQL connection (Make sure the handler is fit for the SQL type you are running)
             /**
              * Make sure the following things:
              * 1. Check if the handler is fit for the database you are running (Currently MySQL)
              * 2. If the (PDO)handler has options PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION set, to do proper errorhandling through frontcontroller. 
              */
-            $DB = new \Core\Handlers\SQL_Handler($dbSettings['host'], $dbSettings['database'], $dbSettings['username'], $dbSettings['password']);
+            $DB = new \App\Models\Handlers\SQL_Handler($dbSettings['host'], $dbSettings['database'], $dbSettings['username'], $dbSettings['password']);
             return $DB;
         }
     }
