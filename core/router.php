@@ -4,28 +4,9 @@
     MVC Router class
 
     Created: 2022-02-13
-    Updated: 2022-02-21
+    Updated: 2022-04-09
 
     Varjoissa
-
-    ## 2022-02-27       
-    - Renamed method    prompt() -> dispatch()
-
-    ## 2022-02-22
-    - Added namespace   core
-    - Updated           prompt() to dispatch namespace based.
-    - Added method      trimQueryString() to extract route from url.
-
-    ## 2022-02-21
-    - Created array     $params; to hold all params for the matched route.
-    - Created method    getParams; to get all params for current match
-    - Created method    match(); to check if URL is found in routing table
-    - Created method    prompt(); to dispatch the url to the given controller
-
-    ## 2022-02-13
-    - Created class
-    - Created array     $routes; to hold all routes
-    - Created method    add(); to add routes to routing table
 
 */
 
@@ -41,7 +22,21 @@ class Router
 
 //  **** GETTERS ************************************************************
 
-    // GET all parameters (for currently matched route)
+    // GET the namespace for the required Controller
+    protected function getNamespace()
+    {
+        // Base namespace
+        $namespace = 'app\controllers\\';
+
+        // Checks if sub-namespace is given for the route
+        if (array_key_exists('namespace', $this->params)) {
+            $namespace .= $this->params['namespace'] . '\\';
+        }
+
+        return $namespace;
+    }
+
+    // GET all parameters; for currently matched route
     function getParams()
     {
         return $this->params;
@@ -53,24 +48,12 @@ class Router
         return $this->routes;
     }
 
-    protected function getNamespace()
-    {
-        $namespace = 'app\controllers\\';
-
-        if (array_key_exists('namespace', $this->params)) {
-            $namespace .= $this->params['namespace'] . '\\';
-        }
-
-        return $namespace;
-    }
-
-
 
 //  **** PUBLIC ************************************************************
     
-    // ADD dynamic route (regular expression) to routing table 
+    // ADD dynamic route (based on regular expression) to routing table 
     //      $route (string)     : Route URL
-    //      $params (array)     : Controller, action etc.
+    //      $params (array)     : Controller, Action, Namespace etc.
     public function add($route, $params = [])
     {
         // Regex: Escape forward slashes
@@ -88,51 +71,61 @@ class Router
         $this->routes[$route] = $params;
     }
 
-    // Redirects the url to given controller/action
+    // Redirects the URL to given Controller/Action
     public function dispatch($url)
     {
-        
+        // Trim the Query string from spaces
         $url = $this->trimQueryString($url);
         
+        // Checks if URL matches a route in the routing table
         if ($this->match($url)) {
+            // Define the right Namespace and Controller
             $controller = $this->params['controller'];
             $controller = $this->convertString($controller, 'studly');
             $controller = $this->getNamespace() . "$controller";
             
+            // Checks if Controller exists for the route
             if (class_exists($controller)) {
                 $controller_obj = new $controller($this->params);
                 
+                // Define the right Action within the controller
                 $action = $this->params['action'];
                 $action = $this->convertString($action, 'camel');
 
+                // Escape direct calls to the Actions within controllers
+                // Function to protect bypassing the before/after function calls
                 if (preg_match('/action$/i', $action) == 0) {
+                    // Calls __call magic method within Base Controller
+                    // Action call is made within the __call method
                     $controller_obj->$action();
                 } else {
+                    // Throw exception 500 - Server Error
                     echo "Method $action in controller $controller cannot be called directly - remove the Action suffix to call this method";
                     exit();
                 }
             } else {
+                // Throw exception 404 - Not Found
                 echo "Controller class $controller not found. (#404)";
             }
         } else {
+            // Throw exception 404 - Not Found
             echo "No route found for url " . urlencode($url) . ". (#404)";
         }
     }
 
 
 
-    // MATCH url with routing table.
+    // MATCH url with routing table
     //      $url (string)       : Route URL to match
     //      return (boolean)    : Match is succesfull or not
     public function match($url)
     {
         
+        // Loop through all routes
         foreach ($this->routes as $route => $params) {
-            // Extract routing params from URL
-            
+            // Extract routing params from URL    
             if (preg_match($route, $url, $matches)) {
                 // Loop through params and get the named params
-                
                 foreach ($matches as $key => $match) {
                     if (is_string($key)) {
                         $params[$key] = $match;
@@ -164,7 +157,7 @@ class Router
         }
     }
 
-    // Trims query string variables from the url to extract the route
+    // Trims query string variables from the URL to extract the route
     protected function trimQueryString($url) 
     {
         if ($url != '') {

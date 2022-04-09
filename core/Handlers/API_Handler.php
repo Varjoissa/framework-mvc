@@ -7,7 +7,7 @@
     This version is basically working, but still very incomplete.
     
     Created: 2022-01-25
-    Updated: 2022-04-07
+    Updated: 2022-04-09
 
     Varjoissa
 
@@ -15,10 +15,6 @@
     ***** TODO *****
     **1 Reform Handler -> Endpoint template, with regex identifiers, to add Auth and params dynamically
 */
-
-// namespace core\Handlers;
-
-// use PDO;
 
 namespace Core\Handlers;
 

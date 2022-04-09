@@ -4,29 +4,16 @@
     Front controller
 
     Created: 2022-02-13
-    Updated: 2022-02-27
+    Updated: 2022-04-09
 
     Varjoissa
-
-    ## 2022-02-27
-    - Added param       namespace to Routing table (Routing table needs to be seperated later)
-    - Changed call      $ROUTER->prompt() to $ROUTER->dispatch()
-
-    ## 2022-02-22
-    - Added autoloader  Controller autoloader
-
-    ## 2022-02-21
-    - Added routes      Dynamic routes; adding Regex to routing table
-    - Added prompt      Dispatches URL to Controller/Action
-    
-    ## 2022-02-13
-    - Created index     front controller
-    - Included file     router.php
-    - Created object    $ROUTER
 
 */
 
 // Class Autoloader
+/**
+ * Tests if classname exists in the matching filename, then imports it.
+ */
 spl_autoload_register(function ($class) {
     $root = dirname(__DIR__);
     $file = $root . '/' . str_replace('\\', '/', $class) . '.php';
@@ -35,17 +22,19 @@ spl_autoload_register(function ($class) {
     }
 });
 
-// Include Router
-require '../core/Router.php';
-
-// Create new ROUTER
+// Router Creation
+require '../Core/Router.php';
 $ROUTER = new core\Router();
 
-// Add routing table
-$routing_table = json_decode(file_get_contents('../core/routing_table.json'), true);
+// Routing-Table importing from JSON file
+$routing_table = json_decode(file_get_contents('../Core/routing_table.json'), true);
 foreach ($routing_table as $route) {
     $ROUTER->add($route['route'], $route['params']);
 }
 
-// // Dispatch route
+// Route dispatching; to its according Controller and Action
+/**
+ * Uses query string, not complete URL path. 
+ * Check if .htaccess file has the required settings for this.
+ */
 $ROUTER->dispatch($_SERVER['QUERY_STRING']);
